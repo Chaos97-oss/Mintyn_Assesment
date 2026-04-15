@@ -1,39 +1,30 @@
 import Foundation
 
-enum SettingsSection: Int, CaseIterable {
-    case system
-    case legal
-    case logout
-    
-    var title: String {
-        switch self {
-        case .system: return "System"
-        case .legal: return "Legal"
-        case .logout: return "Account"
-        }
-    }
-    
-    var items: [String] {
-        switch self {
-        case .system: return ["Appearance", "Notifications", "Security"]
-        case .legal: return ["Terms of Service", "Privacy Policy"]
-        case .logout: return ["Log out"]
-        }
-    }
+struct SettingsOption {
+    let title: String
+    let iconName: String
+}
+
+struct SettingsSectionModel {
+    let title: String
+    let options: [SettingsOption]
 }
 
 class SettingsViewModel {
-    
-    var onLogout: (() -> Void)?
-    
-    func handleSelection(at indexPath: IndexPath) {
-        guard let section = SettingsSection(rawValue: indexPath.section) else { return }
-        
-        if section == .logout {
-            // Perform mocked logout
-            // (In a real app, clear keychain/UserDefaults here)
-            onLogout?()
-        }
-        // Handle other actions here...
-    }
+    let sections: [SettingsSectionModel] = [
+        SettingsSectionModel(title: "Profile", options: [
+            SettingsOption(title: "Personal Information", iconName: "person.circle"),
+            SettingsOption(title: "Payment Limits", iconName: "chart.bar"),
+            SettingsOption(title: "Security", iconName: "lock.shield")
+        ]),
+        SettingsSectionModel(title: "Preferences", options: [
+            SettingsOption(title: "Notifications", iconName: "bell"),
+            SettingsOption(title: "Appearance", iconName: "paintbrush"),
+            SettingsOption(title: "Fingerprint / Face ID", iconName: "faceid")
+        ]),
+        SettingsSectionModel(title: "System", options: [
+            SettingsOption(title: "Help & Support", iconName: "questionmark.circle"),
+            SettingsOption(title: "Logout", iconName: "arrow.right.square")
+        ])
+    ]
 }
