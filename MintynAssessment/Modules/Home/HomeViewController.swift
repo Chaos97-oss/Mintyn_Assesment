@@ -101,6 +101,11 @@ class HomeViewController: UIViewController {
         viewModel.loadData()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         animateLiquidOrbs()
@@ -164,7 +169,7 @@ class HomeViewController: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            headerView.topAnchor.constraint(equalTo: view.topAnchor, constant: 64),
             headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
             headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
             headerView.heightAnchor.constraint(equalToConstant: 70),

@@ -65,4 +65,14 @@ class CarouselCardCell: UICollectionViewCell {
         titleLabel.text = title
         iconImageView.image = UIImage(systemName: iconName)
     }
+    
+    // Add interactive animations on touch
+    override var isHighlighted: Bool {
+        didSet {
+            UIView.animate(withDuration: 0.1) {
+                self.transform = self.isHighlighted ? CGAffineTransform(scaleX: 0.95, y: 0.95) : .identity
+                self.alpha = self.isHighlighted ? 0.8 : 1.0
+            }
+        }
+    }
 }
