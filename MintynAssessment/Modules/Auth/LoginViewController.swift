@@ -253,6 +253,8 @@ class LoginViewController: UIViewController {
         
         rememberButton.addTarget(self, action: #selector(didTapRemember), for: .touchUpInside)
         
+        pageControl.addTarget(self, action: #selector(pageControlDidChange(_:)), for: .valueChanged)
+        
         viewModel.onLoadingStateChanged = { [weak self] isLoading in
             if isLoading {
                 self?.loginButton.setTitle("", for: .normal)
@@ -296,6 +298,13 @@ class LoginViewController: UIViewController {
         let newColor = isChecked ? UIColor.lightGray : UIColor(red: 0.85, green: 0.65, blue: 0.13, alpha: 1.0)
         rememberButton.setImage(UIImage(systemName: newImage), for: .normal)
         rememberButton.tintColor = newColor
+    }
+    
+    @objc private func pageControlDidChange(_ sender: UIPageControl) {
+        let page = sender.currentPage
+        // Use the width of the collection view including any layout offsets
+        let offset = CGPoint(x: collectionView.bounds.width * CGFloat(page), y: 0)
+        collectionView.setContentOffset(offset, animated: true)
     }
 }
 
