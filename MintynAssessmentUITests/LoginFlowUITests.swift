@@ -33,7 +33,7 @@ class LoginFlowUITests: XCTestCase {
         loginButton.tap()
         
         // Wait for MockAuthService delay (1.5s) and transition
-        let homeWelcomeLabel = app.staticTexts["Good Morning, User"]
+        let homeWelcomeLabel = app.staticTexts["Good Morning, John"]
         XCTAssertTrue(homeWelcomeLabel.waitForExistence(timeout: 4.0), "Home screen should appear after successful login")
         
         // Navigation to Settings

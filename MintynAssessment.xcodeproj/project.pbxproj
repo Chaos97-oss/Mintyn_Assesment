@@ -30,12 +30,14 @@
 		0436660B2F8F239100BA1411 /* QuickActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043666052F8F239000BA1411 /* QuickActionButton.swift */; };
 		0436660C2F8F239100BA1411 /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043666062F8F239000BA1411 /* PrimaryButton.swift */; };
 		0436660F2F8F240800BA1411 /* fix_project.rb in Resources */ = {isa = PBXBuildFile; fileRef = 0436660E2F8F240800BA1411 /* fix_project.rb */; };
-		043666102F8F6DF600BA1411 /* AuthServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043665EC2F8F222200BA1411 /* AuthServiceTests.swift */; };
 		043666112F8F6E2300BA1411 /* LoginFlowUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043665EA2F8F222200BA1411 /* LoginFlowUITests.swift */; };
 		043666122F8F6E3B00BA1411 /* LoginViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043665ED2F8F222200BA1411 /* LoginViewModelTests.swift */; };
 		043666162F8F744C00BA1411 /* PasswordField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043666132F8F744C00BA1411 /* PasswordField.swift */; };
 		043666172F8F744C00BA1411 /* CarouselCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043666142F8F744C00BA1411 /* CarouselCardCell.swift */; };
 		043666182F8F744C00BA1411 /* PhoneNumberField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043666152F8F744C00BA1411 /* PhoneNumberField.swift */; };
+		043666222F8F77AD00BA1411 /* MintynUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0436661B2F8F77A100BA1411 /* MintynUITests.swift */; };
+		043666232F8F77C000BA1411 /* AuthServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0436661D2F8F77A100BA1411 /* AuthServiceTests.swift */; };
+		043666242F8F77C000BA1411 /* LoginViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0436661E2F8F77A100BA1411 /* LoginViewModelTests.swift */; };
 		200B4E59934DE09871006527 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D2CE04A4820567F298835A /* SettingsViewController.swift */; };
 		425966DAAFD07396B56C2759 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8A459406A2CA0177A037119 /* HomeViewController.swift */; };
 		4AA682C53D25F1B53E2C3F1A /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E83E4B159E6E17037DE3FC6 /* HomeViewModel.swift */; };
@@ -86,7 +88,6 @@
 		043665E62F8F222100BA1411 /* MockAuthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockAuthService.swift; sourceTree = "<group>"; };
 		043665E72F8F222100BA1411 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		043665EA2F8F222200BA1411 /* LoginFlowUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginFlowUITests.swift; sourceTree = "<group>"; };
-		043665EC2F8F222200BA1411 /* AuthServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthServiceTests.swift; sourceTree = "<group>"; };
 		043665ED2F8F222200BA1411 /* LoginViewModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewModelTests.swift; sourceTree = "<group>"; };
 		043665FD2F8F239000BA1411 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		043666032F8F239000BA1411 /* TransactionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionCell.swift; sourceTree = "<group>"; };
@@ -97,6 +98,9 @@
 		043666132F8F744C00BA1411 /* PasswordField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordField.swift; sourceTree = "<group>"; };
 		043666142F8F744C00BA1411 /* CarouselCardCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarouselCardCell.swift; sourceTree = "<group>"; };
 		043666152F8F744C00BA1411 /* PhoneNumberField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneNumberField.swift; sourceTree = "<group>"; };
+		0436661B2F8F77A100BA1411 /* MintynUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MintynUITests.swift; sourceTree = "<group>"; };
+		0436661D2F8F77A100BA1411 /* AuthServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AuthServiceTests.swift; path = ../MintynAssessment/Tests/UnitTests/AuthServiceTests.swift; sourceTree = "<group>"; };
+		0436661E2F8F77A100BA1411 /* LoginViewModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginViewModelTests.swift; path = ../MintynAssessment/Tests/UnitTests/LoginViewModelTests.swift; sourceTree = "<group>"; };
 		12184E7533F9CA96FBC2C3E5 /* LoginViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LoginViewModel.swift; path = Auth/LoginViewModel.swift; sourceTree = "<group>"; };
 		473FCCF1E6AE998872AE18E8 /* SettingsViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SettingsViewModel.swift; path = Settings/SettingsViewModel.swift; sourceTree = "<group>"; };
 		5CB0AB03395E13C522757A90 /* SplashViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SplashViewController.swift; path = Splash/SplashViewController.swift; sourceTree = "<group>"; };
@@ -173,8 +177,9 @@
 		043665BF2F8F1E5A00BA1411 /* MintynAssessmentTests */ = {
 			isa = PBXGroup;
 			children = (
+				0436661D2F8F77A100BA1411 /* AuthServiceTests.swift */,
 				043665ED2F8F222200BA1411 /* LoginViewModelTests.swift */,
-				043665EC2F8F222200BA1411 /* AuthServiceTests.swift */,
+				0436661E2F8F77A100BA1411 /* LoginViewModelTests.swift */,
 				043665C02F8F1E5A00BA1411 /* MintynAssessmentTests.swift */,
 			);
 			path = MintynAssessmentTests;
@@ -183,6 +188,7 @@
 		043665C92F8F1E5A00BA1411 /* MintynAssessmentUITests */ = {
 			isa = PBXGroup;
 			children = (
+				0436661B2F8F77A100BA1411 /* MintynUITests.swift */,
 				043665EA2F8F222200BA1411 /* LoginFlowUITests.swift */,
 				043665CA2F8F1E5A00BA1411 /* MintynAssessmentUITests.swift */,
 				043665CC2F8F1E5A00BA1411 /* MintynAssessmentUITestsLaunchTests.swift */,
@@ -250,6 +256,7 @@
 			children = (
 				043665E52F8F222100BA1411 /* LoginViewModel.swift */,
 				043665E62F8F222100BA1411 /* MockAuthService.swift */,
+				043666192F8F77A100BA1411 /* Tests */,
 				043665E72F8F222100BA1411 /* LoginViewController.swift */,
 			);
 			path = Auth;
@@ -313,6 +320,30 @@
 				043666062F8F239000BA1411 /* PrimaryButton.swift */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		043666192F8F77A100BA1411 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				0436661A2F8F77A100BA1411 /* UITests */,
+				0436661C2F8F77A100BA1411 /* UnitTests */,
+			);
+			name = Tests;
+			path = MintynAssessment/Tests;
+			sourceTree = SOURCE_ROOT;
+		};
+		0436661A2F8F77A100BA1411 /* UITests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UITests;
+			sourceTree = "<group>";
+		};
+		0436661C2F8F77A100BA1411 /* UnitTests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UnitTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -481,9 +512,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				043666242F8F77C000BA1411 /* LoginViewModelTests.swift in Sources */,
 				043666122F8F6E3B00BA1411 /* LoginViewModelTests.swift in Sources */,
 				043665C12F8F1E5A00BA1411 /* MintynAssessmentTests.swift in Sources */,
-				043666102F8F6DF600BA1411 /* AuthServiceTests.swift in Sources */,
+				043666232F8F77C000BA1411 /* AuthServiceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -493,6 +525,7 @@
 			files = (
 				043666112F8F6E2300BA1411 /* LoginFlowUITests.swift in Sources */,
 				043665CB2F8F1E5A00BA1411 /* MintynAssessmentUITests.swift in Sources */,
+				043666222F8F77AD00BA1411 /* MintynUITests.swift in Sources */,
 				043665CD2F8F1E5A00BA1411 /* MintynAssessmentUITestsLaunchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
