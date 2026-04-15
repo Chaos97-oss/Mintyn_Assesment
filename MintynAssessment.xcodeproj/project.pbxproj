@@ -38,6 +38,9 @@
 		043666222F8F77AD00BA1411 /* MintynUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0436661B2F8F77A100BA1411 /* MintynUITests.swift */; };
 		043666232F8F77C000BA1411 /* AuthServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0436661D2F8F77A100BA1411 /* AuthServiceTests.swift */; };
 		043666242F8F77C000BA1411 /* LoginViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0436661E2F8F77A100BA1411 /* LoginViewModelTests.swift */; };
+		045495742F8FC06A009FF3F4 /* SOLUTION.md in Resources */ = {isa = PBXBuildFile; fileRef = 045495732F8FC06A009FF3F4 /* SOLUTION.md */; };
+		045495772F8FC086009FF3F4 /* LiquidBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045495752F8FC085009FF3F4 /* LiquidBackgroundView.swift */; };
+		045495782F8FC086009FF3F4 /* CustomAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045495762F8FC086009FF3F4 /* CustomAlertViewController.swift */; };
 		200B4E59934DE09871006527 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D2CE04A4820567F298835A /* SettingsViewController.swift */; };
 		425966DAAFD07396B56C2759 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8A459406A2CA0177A037119 /* HomeViewController.swift */; };
 		4AA682C53D25F1B53E2C3F1A /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E83E4B159E6E17037DE3FC6 /* HomeViewModel.swift */; };
@@ -101,6 +104,9 @@
 		0436661B2F8F77A100BA1411 /* MintynUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MintynUITests.swift; sourceTree = "<group>"; };
 		0436661D2F8F77A100BA1411 /* AuthServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AuthServiceTests.swift; path = ../MintynAssessment/Tests/UnitTests/AuthServiceTests.swift; sourceTree = "<group>"; };
 		0436661E2F8F77A100BA1411 /* LoginViewModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginViewModelTests.swift; path = ../MintynAssessment/Tests/UnitTests/LoginViewModelTests.swift; sourceTree = "<group>"; };
+		045495732F8FC06A009FF3F4 /* SOLUTION.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = SOLUTION.md; sourceTree = "<group>"; };
+		045495752F8FC085009FF3F4 /* LiquidBackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LiquidBackgroundView.swift; path = MintynAssessment/Components/LiquidBackgroundView.swift; sourceTree = "<group>"; };
+		045495762F8FC086009FF3F4 /* CustomAlertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomAlertViewController.swift; path = MintynAssessment/Components/CustomAlertViewController.swift; sourceTree = "<group>"; };
 		12184E7533F9CA96FBC2C3E5 /* LoginViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LoginViewModel.swift; path = Auth/LoginViewModel.swift; sourceTree = "<group>"; };
 		473FCCF1E6AE998872AE18E8 /* SettingsViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SettingsViewModel.swift; path = Settings/SettingsViewModel.swift; sourceTree = "<group>"; };
 		5CB0AB03395E13C522757A90 /* SplashViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SplashViewController.swift; path = Splash/SplashViewController.swift; sourceTree = "<group>"; };
@@ -139,6 +145,9 @@
 		0436659A2F8F1E5700BA1411 = {
 			isa = PBXGroup;
 			children = (
+				045495762F8FC086009FF3F4 /* CustomAlertViewController.swift */,
+				045495752F8FC085009FF3F4 /* LiquidBackgroundView.swift */,
+				045495732F8FC06A009FF3F4 /* SOLUTION.md */,
 				043665A52F8F1E5700BA1411 /* MintynAssessment */,
 				043665BF2F8F1E5A00BA1411 /* MintynAssessmentTests */,
 				043665C92F8F1E5A00BA1411 /* MintynAssessmentUITests */,
@@ -161,11 +170,9 @@
 			children = (
 				043665A62F8F1E5700BA1411 /* AppDelegate.swift */,
 				043665A82F8F1E5700BA1411 /* SceneDelegate.swift */,
-				043665FA2F8F239000BA1411 /* App */,
 				0436660E2F8F240800BA1411 /* fix_project.rb */,
 				043665FB2F8F239000BA1411 /* Base.lproj */,
 				043666022F8F239000BA1411 /* Components */,
-				043665FE2F8F239000BA1411 /* Core */,
 				043665D92F8F222100BA1411 /* Modules */,
 				043665B22F8F1E5A00BA1411 /* Assets.xcassets */,
 				043665B72F8F1E5A00BA1411 /* Info.plist */,
@@ -262,50 +269,12 @@
 			path = Auth;
 			sourceTree = "<group>";
 		};
-		043665FA2F8F239000BA1411 /* App */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = App;
-			sourceTree = "<group>";
-		};
 		043665FB2F8F239000BA1411 /* Base.lproj */ = {
 			isa = PBXGroup;
 			children = (
 				043665FC2F8F239000BA1411 /* LaunchScreen.storyboard */,
 			);
 			path = Base.lproj;
-			sourceTree = "<group>";
-		};
-		043665FE2F8F239000BA1411 /* Core */ = {
-			isa = PBXGroup;
-			children = (
-				043665FF2F8F239000BA1411 /* Network */,
-				043666002F8F239000BA1411 /* Extensions */,
-				043666012F8F239000BA1411 /* Architecture */,
-			);
-			path = Core;
-			sourceTree = "<group>";
-		};
-		043665FF2F8F239000BA1411 /* Network */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Network;
-			sourceTree = "<group>";
-		};
-		043666002F8F239000BA1411 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Extensions;
-			sourceTree = "<group>";
-		};
-		043666012F8F239000BA1411 /* Architecture */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Architecture;
 			sourceTree = "<group>";
 		};
 		043666022F8F239000BA1411 /* Components */ = {
@@ -453,6 +422,7 @@
 				043666082F8F239100BA1411 /* LaunchScreen.storyboard in Resources */,
 				043665B32F8F1E5A00BA1411 /* Assets.xcassets in Resources */,
 				0436660F2F8F240800BA1411 /* fix_project.rb in Resources */,
+				045495742F8FC06A009FF3F4 /* SOLUTION.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -495,6 +465,7 @@
 				043665F62F8F222200BA1411 /* LoginViewController.swift in Sources */,
 				043666182F8F744C00BA1411 /* PhoneNumberField.swift in Sources */,
 				043665F32F8F222200BA1411 /* SplashViewController.swift in Sources */,
+				045495772F8FC086009FF3F4 /* LiquidBackgroundView.swift in Sources */,
 				80E365C369FA2618DF5051B2 /* SettingsViewModel.swift in Sources */,
 				200B4E59934DE09871006527 /* SettingsViewController.swift in Sources */,
 				4AA682C53D25F1B53E2C3F1A /* HomeViewModel.swift in Sources */,
@@ -502,6 +473,7 @@
 				79427B79A57C02598EAAFFC2 /* Transaction.swift in Sources */,
 				425966DAAFD07396B56C2759 /* HomeViewController.swift in Sources */,
 				6FEE31E141B664658A7E595D /* SplashViewController.swift in Sources */,
+				045495782F8FC086009FF3F4 /* CustomAlertViewController.swift in Sources */,
 				6F09C3C0EFDED0F06C6D4F51 /* LoginViewModel.swift in Sources */,
 				01C4F27D91E8D61F2B9764F1 /* MockAuthService.swift in Sources */,
 				B49727EDB5CCE1684D1EE980 /* LoginViewController.swift in Sources */,
