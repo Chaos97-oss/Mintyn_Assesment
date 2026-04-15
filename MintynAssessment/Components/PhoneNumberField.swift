@@ -29,6 +29,15 @@ class PhoneNumberField: UIView {
         return label
     }()
     
+    // Function to dynamically shift to error layout
+    func setErrorState(isError: Bool) {
+        if isError {
+            layer.borderColor = UIColor.red.cgColor
+        } else {
+            layer.borderColor = UIColor.white.withAlphaComponent(0.1).cgColor
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
