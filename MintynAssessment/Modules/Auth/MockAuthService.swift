@@ -15,19 +15,19 @@ enum AuthError: Error {
 }
 
 protocol AuthServiceProtocol {
-    func login(email: String, password: String, completion: @escaping (Result<Void, AuthError>) -> Void)
+    func login(phoneNumber: String, password: String, completion: @escaping (Result<Void, AuthError>) -> Void)
 }
 
 final class MockAuthService: AuthServiceProtocol {
-    func login(email: String, password: String, completion: @escaping (Result<Void, AuthError>) -> Void) {
+    func login(phoneNumber: String, password: String, completion: @escaping (Result<Void, AuthError>) -> Void) {
         // Simulate network delay
         DispatchQueue.global().asyncAfter(deadline: .now() + 1.5) {
             // Basic mock validation
-            if email.isEmpty || password.isEmpty {
+            if phoneNumber.isEmpty || password.isEmpty {
                 DispatchQueue.main.async { completion(.failure(.invalidCredentials)) }
                 return
             }
-            if email == "admin@mintyn.com" && password == "password123" {
+            if phoneNumber == "8021234567" && password == "password" {
                 DispatchQueue.main.async { completion(.success(())) }
             } else {
                 DispatchQueue.main.async { completion(.failure(.invalidCredentials)) }

@@ -23,9 +23,9 @@ class LoginViewModel {
     }
     
     // MARK: - Logic
-    func login(email: String?, password: String?) {
-        guard let email = email, !email.isEmpty else {
-            onError?("Please enter your email.")
+    func login(phoneNumber: String?, password: String?) {
+        guard let phoneNumber = phoneNumber, !phoneNumber.isEmpty else {
+            onError?("Please enter your phone number.")
             return
         }
         guard let password = password, !password.isEmpty else {
@@ -35,7 +35,7 @@ class LoginViewModel {
         
         isLoading = true
         
-        authService.login(email: email, password: password) { [weak self] result in
+        authService.login(phoneNumber: phoneNumber, password: password) { [weak self] result in
             guard let self = self else { return }
             self.isLoading = false
             
