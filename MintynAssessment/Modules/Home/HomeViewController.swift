@@ -157,8 +157,14 @@ class HomeViewController: UIViewController {
         
         // Re-add generic buttons into stack
         let transferBtn = QuickActionButton(title: "Transfer", iconName: "arrow.right.arrow.left")
+        transferBtn.addTarget(self, action: #selector(didTapTransfer), for: .touchUpInside)
+        
         let billBtn = QuickActionButton(title: "Pay Bills", iconName: "doc.text")
+        billBtn.addTarget(self, action: #selector(didTapBills), for: .touchUpInside)
+        
         let topupBtn = QuickActionButton(title: "Top Up", iconName: "iphone")
+        topupBtn.addTarget(self, action: #selector(didTapTopUp), for: .touchUpInside)
+        
         actionsStackView.addArrangedSubview(transferBtn)
         actionsStackView.addArrangedSubview(billBtn)
         actionsStackView.addArrangedSubview(topupBtn)
@@ -233,6 +239,17 @@ class HomeViewController: UIViewController {
             self.navigationController?.pushViewController(settingsVC, animated: true)
         }
     }
+    
+    // Quick Actions
+    private func presentFeature(_ vc: UIViewController) {
+        vc.modalPresentationStyle = .fullScreen
+        vc.modalTransitionStyle = .crossDissolve
+        present(vc, animated: true, completion: nil)
+    }
+    
+    @objc private func didTapTransfer() { presentFeature(TransferViewController()) }
+    @objc private func didTapBills() { presentFeature(PayBillsViewController()) }
+    @objc private func didTapTopUp() { presentFeature(TopUpViewController()) }
 }
 
 extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
