@@ -112,15 +112,14 @@ class TransactionCell: UITableViewCell {
         
         // Mock Date Formatter
         let df = DateFormatter()
-        df.dateStyle = .medium
-        dateLabel.text = df.string(from: transaction.date)
+        df.dateFormat = "yyyy-MM-dd"
         
-        if transaction.type == .credit {
-            amountLabel.textColor = .systemGreen
-            iconImageView.image = UIImage(systemName: "arrow.down.left")
-        } else {
-            amountLabel.textColor = .white
-            iconImageView.image = UIImage(systemName: "arrow.up.right")
-        }
+        if transaction.amount > 0 {
+               amountLabel.textColor = .systemGreen
+               iconImageView.image = UIImage(systemName: "arrow.down.left")
+           } else {
+               amountLabel.textColor = .white
+               iconImageView.image = UIImage(systemName: "arrow.up.right")
+           }
     }
 }
