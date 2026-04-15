@@ -1,24 +1,19 @@
 import UIKit
 
-struct TopCardItem {
-    let title: String
-    let icon: String // SF Symbol name
-}
-
 class LoginViewController: UIViewController {
     
     private let viewModel = LoginViewModel()
     
     // Data
     private let carouselItems: [TopCardItem] = [
-        TopCardItem(title: "EasyCollect", icon: "bag.fill"),
-        TopCardItem(title: "CAC Business\nRegistration", icon: "doc.plaintext.fill"),
-        TopCardItem(title: "Open an\nAccount", icon: "shield.fill"),
-        TopCardItem(title: "Contact\nSupport", icon: "person.crop.circle.badge.questionmark.fill"),
+        TopCardItem(title: "EasyCollect", subtitle: nil, icon: "bag.fill", style: .normal),
+        TopCardItem(title: "CAC Business", subtitle: "Registration", icon: "doc.plaintext.fill", style: .normal),
+        TopCardItem(title: "Open an", subtitle: "Account", icon: "shield.fill", style: .normal),
+        TopCardItem(title: "Contact", subtitle: "Support", icon: "person.crop.circle.badge.questionmark.fill", style: .normal),
         
-        TopCardItem(title: "Maplerad\nVirtual Cards", icon: "creditcard.fill"),
-        TopCardItem(title: "NCTO Card\nActivation", icon: "creditcard.circle.fill"),
-        TopCardItem(title: "Insurance\nComing soon...", icon: "shield.lefthalf.filled")
+        TopCardItem(title: "Maplerad", subtitle: "Virtual Cards", icon: "m.square.fill", style: .maplerad),
+        TopCardItem(title: "NCTO Card\nActivation", subtitle: nil, icon: "", style: .ncto),
+        TopCardItem(title: "Insurance", subtitle: "Coming soon...", icon: "shield.lefthalf.filled", style: .insurance)
     ]
     
     // UI - Header
@@ -359,7 +354,7 @@ extension LoginViewController: UICollectionViewDelegate, UICollectionViewDataSou
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CarouselCardCell.identifier, for: indexPath) as! CarouselCardCell
         let item = carouselItems[indexPath.row]
-        cell.configure(title: item.title, iconName: item.icon)
+        cell.configure(with: item)
         return cell
     }
     
