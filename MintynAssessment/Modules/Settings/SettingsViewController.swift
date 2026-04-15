@@ -27,7 +27,6 @@ class SettingsViewController: UIViewController {
     }
     
     private func setupUI() {
-        // Liquid Glass Theme
         let background = LiquidBackgroundView(frame: view.bounds)
         background.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.addSubview(background)
@@ -58,36 +57,35 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let settingsSection = SettingsSection(rawValue: indexPath.section) else { return cell }
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let option = viewModel.sections[indexPath.section].options[indexPath.row]
         
-        let title = settingsSection.items[indexPath.row]
-        cell.textLabel?.text = title
+        cell.textLabel?.text = option.title
+        cell.imageView?.image = UIImage(systemName: option.iconName)
+        cell.imageView?.tintColor = UIColor(red: 0.85, green: 0.65, blue: 0.13, alpha: 1.0)
         
-        if settingsSection == .logout {
-            cell.textLabel?.textColor = .systemRed
-            cell.accessoryType = .none
-        } else {
-            cell.textLabel?.textColor = .label
-            cell.accessoryType = .disclosureIndicator
+        cell.backgroundColor = UIColor(white: 0.1, alpha: 0.6)
+        cell.textLabel?.textColor = .white
+        
+        if option.title == "Logout" {
+             cell.textLabel?.textColor = .systemRed
+             cell.imageView?.tintColor = .systemRed
         }
         
         return cell
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return SettingsSection(rawValue: section)?.title
-    }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        let option = viewModel.sections[indexPath.section].options[indexPath.row]
         
-        // Let ViewModel handle the logic
-        viewModel.handleSelection(at: indexPath)
-        
-        // Show placeholders for non-logout
-        if SettingsSection(rawValue: indexPath.section) != .logout {
-            let item = SettingsSection(rawValue: indexPath.section)?.items[indexPath.row] ?? ""
-            let alert = UIAlertController(title: item, message: "This feature is coming soon.", preferredStyle: .alert)
+        if option.title == "Logout" {
+            let loginVC = LoginViewController()
+            guard let window = view.window else { return }
+            window.rootViewController = loginVC
+            UIView.transition(with: window, duration: 0.3, options: .transitionCrossDissolve, animations: nil, completion: nil)
+        } else {
+            let alert = UIAlertController(title: option.title, message: "Setting feature not implemented.", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default))
             present(alert, animated: true)
         }

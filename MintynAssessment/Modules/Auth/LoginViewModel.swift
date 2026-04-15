@@ -24,7 +24,7 @@ class LoginViewModel {
     
     // MARK: - Logic
     func login(phoneNumber: String?, password: String?) {
-        guard let phoneNumber = phoneNumber, !phoneNumber.isEmpty else {
+        guard let phoneNumber = phoneNumber, !phoneNumber.isEmpty, phoneNumber.count >= 10 else {
             onError?("Please enter your phone number.")
             return
         }

@@ -43,7 +43,6 @@ class LoginViewController: UIViewController {
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 16
         layout.minimumInteritemSpacing = 16
-        // To fit 2 rows exactly
         let itemWidth = (UIScreen.main.bounds.width - 64) / 2
         layout.itemSize = CGSize(width: itemWidth, height: 70)
         layout.sectionInset = UIEdgeInsets(top: 0, left: 24, bottom: 0, right: 24)
@@ -114,6 +113,22 @@ class LoginViewController: UIViewController {
         return b
     }()
     
+    // Error Banner View
+    private let errorBannerView: UIView = {
+        let v = UIView()
+        v.backgroundColor = .systemRed
+        v.layer.cornerRadius = 8
+        v.isHidden = true
+        return v
+    }()
+    private let errorBannerLabel: UILabel = {
+        let l = UILabel()
+        l.text = "Invalid phone number"
+        l.font = .systemFont(ofSize: 14, weight: .regular)
+        l.textColor = .white
+        return l
+    }()
+    
     private let registerButton: UIButton = {
         let b = UIButton(type: .system)
         b.setTitle("Register new device", for: .normal)
@@ -169,10 +184,13 @@ class LoginViewController: UIViewController {
         
         [phoneLabel, phoneField, passLabel, passField,
          rememberButton, forgotButton, loginButton,
-         registerButton, footerPoweredLabel, footerVersionLabel].forEach {
+         errorBannerView, registerButton, footerPoweredLabel, footerVersionLabel].forEach {
             bottomSheet.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
+        
+        errorBannerView.addSubview(errorBannerLabel)
+        errorBannerLabel.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             // Header
@@ -193,7 +211,7 @@ class LoginViewController: UIViewController {
             collectionView.topAnchor.constraint(equalTo: headerContainer.bottomAnchor, constant: 20),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            collectionView.heightAnchor.constraint(equalToConstant: 160), // 70*2 + 16 space + padding
+            collectionView.heightAnchor.constraint(equalToConstant: 160),
             
             pageControl.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 8),
             pageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -235,7 +253,16 @@ class LoginViewController: UIViewController {
             activityIndicator.centerXAnchor.constraint(equalTo: loginButton.centerXAnchor),
             activityIndicator.centerYAnchor.constraint(equalTo: loginButton.centerYAnchor),
             
-            registerButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 24),
+            errorBannerView.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 16),
+            errorBannerView.leadingAnchor.constraint(equalTo: bottomSheet.leadingAnchor, constant: 24),
+            errorBannerView.trailingAnchor.constraint(equalTo: bottomSheet.trailingAnchor, constant: -24),
+            errorBannerView.heightAnchor.constraint(equalToConstant: 44),
+            
+            errorBannerLabel.centerYAnchor.constraint(equalTo: errorBannerView.centerYAnchor),
+            errorBannerLabel.leadingAnchor.constraint(equalTo: errorBannerView.leadingAnchor, constant: 16),
+            
+            // Adjust registerButton dynamically so errorView pushes it if it sits beneath
+            registerButton.topAnchor.constraint(equalTo: errorBannerView.bottomAnchor, constant: 16),
             registerButton.centerXAnchor.constraint(equalTo: bottomSheet.centerXAnchor),
             
             footerPoweredLabel.bottomAnchor.constraint(equalTo: footerVersionLabel.topAnchor, constant: -4),
@@ -252,7 +279,6 @@ class LoginViewController: UIViewController {
         view.addGestureRecognizer(tap)
         
         rememberButton.addTarget(self, action: #selector(didTapRemember), for: .touchUpInside)
-        
         pageControl.addTarget(self, action: #selector(pageControlDidChange(_:)), for: .valueChanged)
         
         viewModel.onLoadingStateChanged = { [weak self] isLoading in
@@ -277,14 +303,32 @@ class LoginViewController: UIViewController {
         }
         
         viewModel.onError = { [weak self] errorMsg in
-            let alert = UIAlertController(title: "Error", message: errorMsg, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default))
-            self?.present(alert, animated: true)
+            guard let self = self else { return }
+            
+            if errorMsg == "Please enter your phone number." {
+                self.phoneLabel.textColor = .systemRed
+                self.phoneField.setErrorState(isError: true)
+                self.errorBannerView.isHidden = false
+                self.errorBannerLabel.text = "Invalid phone number"
+                self.registerButton.isHidden = true // Hide register button when error is up based on constraints visually
+            } else {
+                let alert = CustomAlertViewController()
+                alert.modalPresentationStyle = .overFullScreen
+                alert.modalTransitionStyle = .crossDissolve
+                self.present(alert, animated: true)
+            }
         }
     }
     
     @objc private func didTapLogin() {
         dismissKeyboard()
+        
+        // Reset Error state on new attempt
+        phoneLabel.textColor = .white
+        phoneField.setErrorState(isError: false)
+        errorBannerView.isHidden = true
+        registerButton.isHidden = false
+        
         viewModel.login(phoneNumber: phoneField.textField.text, password: passField.textField.text)
     }
     
@@ -302,7 +346,6 @@ class LoginViewController: UIViewController {
     
     @objc private func pageControlDidChange(_ sender: UIPageControl) {
         let page = sender.currentPage
-        // Use the width of the collection view including any layout offsets
         let offset = CGPoint(x: collectionView.bounds.width * CGFloat(page), y: 0)
         collectionView.setContentOffset(offset, animated: true)
     }
