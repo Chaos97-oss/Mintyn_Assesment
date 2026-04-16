@@ -24,14 +24,20 @@ class LoginViewController: UIViewController {
         btn.tintColor = .white
         return btn
     }()
-    private let welcomeLabel: UILabel = {
+    private let logoStack: UIStackView = {
+        let logoView = UIImageView(image: UIImage(named: "MintynLogo"))
+        logoView.contentMode = .scaleAspectFit
+        logoView.widthAnchor.constraint(equalToConstant: 20).isActive = true
+        
         let lbl = UILabel()
         lbl.text = "Welcome"
         lbl.font = .systemFont(ofSize: 22, weight: .semibold)
         lbl.textColor = .white
-        return lbl
+        
+        let stack = UIStackView(arrangedSubviews: [logoView, lbl])
+        stack.spacing = 8
+        return stack
     }()
-    
     // UI - Carousel
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -169,7 +175,7 @@ class LoginViewController: UIViewController {
     private func setupViewAndConstraints() {
         view.backgroundColor = .black
         
-        [headerContainer, backButton, welcomeLabel,
+        [headerContainer, backButton, logoStack,
          collectionView, pageControl, bottomSheet].forEach {
             view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -203,8 +209,8 @@ class LoginViewController: UIViewController {
             backButton.widthAnchor.constraint(equalToConstant: 40),
             backButton.heightAnchor.constraint(equalToConstant: 40),
             
-            welcomeLabel.centerXAnchor.constraint(equalTo: headerContainer.centerXAnchor),
-            welcomeLabel.centerYAnchor.constraint(equalTo: headerContainer.centerYAnchor),
+            logoStack.centerXAnchor.constraint(equalTo: headerContainer.centerXAnchor),
+            logoStack.centerYAnchor.constraint(equalTo: headerContainer.centerYAnchor),
             
             // Carousel
             collectionView.topAnchor.constraint(equalTo: headerContainer.bottomAnchor, constant: 20),

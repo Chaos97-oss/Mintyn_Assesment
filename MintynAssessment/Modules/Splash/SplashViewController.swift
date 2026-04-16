@@ -15,10 +15,7 @@ class SplashViewController: UIViewController {
     // MARK: - UI Components
     private let logoImageView: UIImageView = {
         let imageView = UIImageView()
-        // Assuming there is a Mintyn logo in Assets. Using SF Symbols or a label as a placeholder if no image exists.
-        // For the assessment, we will style a Label to look like a placeholder logo.
-        imageView.image = UIImage(systemName: "building.columns.fill")
-        imageView.tintColor = UIColor(red: 0.85, green: 0.65, blue: 0.13, alpha: 1.0) // Gold-ish color like the mintyn image
+        imageView.image = UIImage(named: "MintynLogo")
         imageView.contentMode = .scaleAspectFit
         imageView.alpha = 0
         imageView.translatesAutoresizingMaskIntoConstraints = false
