@@ -12,6 +12,9 @@
 		042F3C3C2F90EF40005AB5F6 /* GiftCardsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042F3C3B2F90EF40005AB5F6 /* GiftCardsViewController.swift */; };
 		042F3C3F2F90EF7F005AB5F6 /* ProductUpdatesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042F3C3D2F90EF7F005AB5F6 /* ProductUpdatesViewController.swift */; };
 		042F3C402F90EF7F005AB5F6 /* SavingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042F3C3E2F90EF7F005AB5F6 /* SavingsViewController.swift */; };
+		042F3C462F90F3A6005AB5F6 /* AddMoneyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042F3C432F90F3A5005AB5F6 /* AddMoneyViewController.swift */; };
+		042F3C472F90F3A6005AB5F6 /* UpdateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042F3C442F90F3A6005AB5F6 /* UpdateAccountViewController.swift */; };
+		042F3C482F90F3A6005AB5F6 /* SwitchAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042F3C452F90F3A6005AB5F6 /* SwitchAccountViewController.swift */; };
 		043665A72F8F1E5700BA1411 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043665A62F8F1E5700BA1411 /* AppDelegate.swift */; };
 		043665A92F8F1E5700BA1411 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043665A82F8F1E5700BA1411 /* SceneDelegate.swift */; };
 		043665B12F8F1E5700BA1411 /* MintynAssessment.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 043665AF2F8F1E5700BA1411 /* MintynAssessment.xcdatamodeld */; };
@@ -82,6 +85,9 @@
 		042F3C3B2F90EF40005AB5F6 /* GiftCardsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GiftCardsViewController.swift; path = Home/GiftCardsViewController.swift; sourceTree = "<group>"; };
 		042F3C3D2F90EF7F005AB5F6 /* ProductUpdatesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProductUpdatesViewController.swift; path = Home/ProductUpdatesViewController.swift; sourceTree = "<group>"; };
 		042F3C3E2F90EF7F005AB5F6 /* SavingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SavingsViewController.swift; path = Home/SavingsViewController.swift; sourceTree = "<group>"; };
+		042F3C432F90F3A5005AB5F6 /* AddMoneyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddMoneyViewController.swift; path = MintynAssessment/Modules/Home/AddMoneyViewController.swift; sourceTree = "<group>"; };
+		042F3C442F90F3A6005AB5F6 /* UpdateAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UpdateAccountViewController.swift; path = MintynAssessment/Modules/Home/UpdateAccountViewController.swift; sourceTree = "<group>"; };
+		042F3C452F90F3A6005AB5F6 /* SwitchAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwitchAccountViewController.swift; path = MintynAssessment/Modules/Home/SwitchAccountViewController.swift; sourceTree = "<group>"; };
 		043665A32F8F1E5700BA1411 /* MintynAssessment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MintynAssessment.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		043665A62F8F1E5700BA1411 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		043665A82F8F1E5700BA1411 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -161,6 +167,9 @@
 		0436659A2F8F1E5700BA1411 = {
 			isa = PBXGroup;
 			children = (
+				042F3C432F90F3A5005AB5F6 /* AddMoneyViewController.swift */,
+				042F3C452F90F3A6005AB5F6 /* SwitchAccountViewController.swift */,
+				042F3C442F90F3A6005AB5F6 /* UpdateAccountViewController.swift */,
 				045495732F8FC06A009FF3F4 /* SOLUTION.md */,
 				043665A52F8F1E5700BA1411 /* MintynAssessment */,
 				043665BF2F8F1E5A00BA1411 /* MintynAssessmentTests */,
@@ -471,6 +480,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				042F3C482F90F3A6005AB5F6 /* SwitchAccountViewController.swift in Sources */,
 				045C1B012F902536004B2A3E /* FeatureBaseViewController.swift in Sources */,
 				043665EE2F8F222200BA1411 /* SettingsViewModel.swift in Sources */,
 				0436660C2F8F239100BA1411 /* PrimaryButton.swift in Sources */,
@@ -486,6 +496,7 @@
 				0436660B2F8F239100BA1411 /* QuickActionButton.swift in Sources */,
 				043665B12F8F1E5700BA1411 /* MintynAssessment.xcdatamodeld in Sources */,
 				043665A92F8F1E5700BA1411 /* SceneDelegate.swift in Sources */,
+				042F3C472F90F3A6005AB5F6 /* UpdateAccountViewController.swift in Sources */,
 				0436660A2F8F239100BA1411 /* PaddingTextField.swift in Sources */,
 				043665EF2F8F222200BA1411 /* SettingsViewController.swift in Sources */,
 				045C1B002F902536004B2A3E /* TransferViewController.swift in Sources */,
@@ -501,6 +512,7 @@
 				042F3C3A2F90EB26005AB5F6 /* CardlessATMViewController.swift in Sources */,
 				045C1B032F902536004B2A3E /* PayBillsViewController.swift in Sources */,
 				4AA682C53D25F1B53E2C3F1A /* HomeViewModel.swift in Sources */,
+				042F3C462F90F3A6005AB5F6 /* AddMoneyViewController.swift in Sources */,
 				043666162F8F744C00BA1411 /* PasswordField.swift in Sources */,
 				79427B79A57C02598EAAFFC2 /* Transaction.swift in Sources */,
 				425966DAAFD07396B56C2759 /* HomeViewController.swift in Sources */,
