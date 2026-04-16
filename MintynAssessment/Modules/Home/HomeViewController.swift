@@ -1,104 +1,36 @@
 import UIKit
 
+// Represents the quick access item
+struct QuickAccessItem { let title: String; let icon: String }
+// Represents the color grid item
+struct ColorGridItem { let title: String; let color: UIColor; let icon: String }
+
 class HomeViewController: UIViewController {
     
-    private let viewModel = HomeViewModel()
-    
-    // Liquid Glass Animated Orbs
-    private let orb1 = UIView()
-    private let orb2 = UIView()
-    
     // UI Elements
-    private let headerView = UIView()
-    private let welcomeLabel: UILabel = {
-        let l = UILabel()
-        l.text = "Good morning,\nUser"
-        l.numberOfLines = 2
-        l.font = .systemFont(ofSize: 22, weight: .bold)
-        l.textColor = .white
-        return l
-    }()
+    private let scrollView = UIScrollView()
+    private let contentView = UIView()
     
-    private lazy var avatarButton: UIButton = {
-        let b = UIButton(type: .system)
-        b.setImage(UIImage(systemName: "person.circle.fill"), for: .normal)
-        b.tintColor = UIColor(white: 0.8, alpha: 1.0)
-        b.contentVerticalAlignment = .fill
-        b.contentHorizontalAlignment = .fill
-        b.addTarget(self, action: #selector(didTapSettings), for: .touchUpInside)
-        return b
-    }()
+    private let headerStack = UIStackView()
+    private let accountStack = UIStackView()
     
-    // Balance Card (Liquid Glassmorphic design)
-    private let balanceCard: UIVisualEffectView = {
-        // systemUltraThinMaterialDark is perfect for glassmorphism
-        let blurEffect = UIBlurEffect(style: .systemUltraThinMaterialDark)
-        let v = UIVisualEffectView(effect: blurEffect)
-        v.layer.cornerRadius = 24
-        v.layer.borderWidth = 1
-        v.layer.borderColor = UIColor.white.withAlphaComponent(0.2).cgColor
-        v.clipsToBounds = true
-        return v
-    }()
+    private let balanceCard = UIView()
+    private let updateAccountView = UIView()
     
-    private let balanceTitleLabel: UILabel = {
-        let l = UILabel()
-        l.text = "Total Balance"
-        l.font = .systemFont(ofSize: 14, weight: .medium)
-        l.textColor = UIColor(white: 0.85, alpha: 1.0)
-        return l
-    }()
-    
-    private let balanceAmountLabel: UILabel = {
-        let l = UILabel()
-        l.font = .systemFont(ofSize: 36, weight: .bold)
-        l.textColor = .white
-        return l
-    }()
-    
-    // Action Stack
-    private let actionsStackView: UIStackView = {
-        let s = UIStackView()
-        s.axis = .horizontal
-        s.spacing = 16
-        s.distribution = .fillEqually
-        return s
-    }()
-    
-    // Transactions
-    private let listContainer: UIVisualEffectView = {
-        let blur = UIBlurEffect(style: .systemThinMaterialDark)
-        let v = UIVisualEffectView(effect: blur)
-        v.layer.cornerRadius = 32
-        v.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        v.clipsToBounds = true
-        return v
-    }()
-    
-    private let transactionsTitle: UILabel = {
-        let l = UILabel()
-        l.text = "Recent Transactions"
-        l.font = .systemFont(ofSize: 18, weight: .semibold)
-        l.textColor = .white
-        return l
-    }()
-    
-    private lazy var tableView: UITableView = {
-        let t = UITableView()
-        t.backgroundColor = .clear
-        t.separatorStyle = .none
-        t.delegate = self
-        t.dataSource = self
-        t.register(TransactionCell.self, forCellReuseIdentifier: TransactionCell.identifier)
-        return t
-    }()
+    private let colorGridStack = UIStackView()
+    private let quickAccessLabel = UILabel()
+    private let quickAccessGrid = UIStackView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupLiquidGlassBackground()
-        setupUI()
-        setupBindings()
-        viewModel.loadData()
+        setupBackground()
+        setupScrollView()
+        buildHeader()
+        buildAccountInfo()
+        buildBalanceCard()
+        buildUpdateAccount()
+        buildColorGrid()
+        buildQuickAccess()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -106,138 +38,398 @@ class HomeViewController: UIViewController {
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        animateLiquidOrbs()
+    private func setupBackground() {
+        view.backgroundColor = .black
+        let liquid = LiquidBackgroundView(frame: view.bounds)
+        liquid.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.addSubview(liquid)
+        view.sendSubviewToBack(liquid)
     }
     
-    private func setupLiquidGlassBackground() {
-        view.backgroundColor = UIColor(red: 0.05, green: 0.05, blue: 0.08, alpha: 1.0)
-        
-        // Orb 1 - Gold/Mintyn Color
-        orb1.backgroundColor = UIColor(red: 0.85, green: 0.65, blue: 0.13, alpha: 0.4)
-        orb1.layer.cornerRadius = 100
-        orb1.frame = CGRect(x: -50, y: 100, width: 200, height: 200)
-        view.addSubview(orb1)
-        
-        // Orb 2 - Deep Purple/Blue for premium contrast
-        orb2.backgroundColor = UIColor(red: 0.3, green: 0.1, blue: 0.5, alpha: 0.4)
-        orb2.layer.cornerRadius = 150
-        orb2.frame = CGRect(x: view.bounds.width - 150, y: 300, width: 300, height: 300)
-        view.addSubview(orb2)
-        
-        // Massive Blur Overlay to create Liquid Glass Effect
-        let blurOverlay = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
-        blurOverlay.frame = view.bounds
-        blurOverlay.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        view.addSubview(blurOverlay)
-    }
-    
-    private func animateLiquidOrbs() {
-        // Infinite subtle animations for the liquid background
-        UIView.animate(withDuration: 8.0, delay: 0, options: [.autoreverse, .repeat, .curveEaseInOut], animations: {
-            self.orb1.transform = CGAffineTransform(translationX: 100, y: 50).scaledBy(x: 1.2, y: 1.2)
-            self.orb2.transform = CGAffineTransform(translationX: -80, y: -100).scaledBy(x: 0.8, y: 0.8)
-        })
-    }
-    
-    private func setupUI() {
-        [headerView, welcomeLabel, avatarButton, balanceCard, actionsStackView, listContainer].forEach {
-            $0.translatesAutoresizingMaskIntoConstraints = false
-            view.addSubview($0)
-        }
-        
-        headerView.addSubview(welcomeLabel)
-        headerView.addSubview(avatarButton)
-        
-        balanceCard.contentView.addSubview(balanceTitleLabel)
-        balanceCard.contentView.addSubview(balanceAmountLabel)
-        balanceTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        balanceAmountLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        // Re-add generic buttons into stack
-        let transferBtn = QuickActionButton(title: "Transfer", iconName: "arrow.right.arrow.left")
-        transferBtn.addTarget(self, action: #selector(didTapTransfer), for: .touchUpInside)
-        
-        let billBtn = QuickActionButton(title: "Pay Bills", iconName: "doc.text")
-        billBtn.addTarget(self, action: #selector(didTapBills), for: .touchUpInside)
-        
-        let topupBtn = QuickActionButton(title: "Top Up", iconName: "iphone")
-        topupBtn.addTarget(self, action: #selector(didTapTopUp), for: .touchUpInside)
-        
-        actionsStackView.addArrangedSubview(transferBtn)
-        actionsStackView.addArrangedSubview(billBtn)
-        actionsStackView.addArrangedSubview(topupBtn)
-        
-        listContainer.contentView.addSubview(transactionsTitle)
-        listContainer.contentView.addSubview(tableView)
-        transactionsTitle.translatesAutoresizingMaskIntoConstraints = false
-        tableView.translatesAutoresizingMaskIntoConstraints = false
+    private func setupScrollView() {
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
         
         NSLayoutConstraint.activate([
-            headerView.topAnchor.constraint(equalTo: view.topAnchor, constant: 64),
-            headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
-            headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
-            headerView.heightAnchor.constraint(equalToConstant: 70),
+            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
-            welcomeLabel.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
-            welcomeLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor),
-            
-            avatarButton.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
-            avatarButton.trailingAnchor.constraint(equalTo: headerView.trailingAnchor),
-            avatarButton.widthAnchor.constraint(equalToConstant: 44),
-            avatarButton.heightAnchor.constraint(equalToConstant: 44),
-            
-            balanceCard.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 24),
-            balanceCard.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
-            balanceCard.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
-            balanceCard.heightAnchor.constraint(equalToConstant: 130),
-            
-            balanceTitleLabel.topAnchor.constraint(equalTo: balanceCard.contentView.topAnchor, constant: 24),
-            balanceTitleLabel.leadingAnchor.constraint(equalTo: balanceCard.contentView.leadingAnchor, constant: 24),
-            
-            balanceAmountLabel.topAnchor.constraint(equalTo: balanceTitleLabel.bottomAnchor, constant: 8),
-            balanceAmountLabel.leadingAnchor.constraint(equalTo: balanceCard.contentView.leadingAnchor, constant: 24),
-            
-            actionsStackView.topAnchor.constraint(equalTo: balanceCard.bottomAnchor, constant: 24),
-            actionsStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
-            actionsStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
-            actionsStackView.heightAnchor.constraint(equalToConstant: 100),
-            
-            listContainer.topAnchor.constraint(equalTo: actionsStackView.bottomAnchor, constant: 32),
-            listContainer.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            listContainer.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            listContainer.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            
-            transactionsTitle.topAnchor.constraint(equalTo: listContainer.contentView.topAnchor, constant: 32),
-            transactionsTitle.leadingAnchor.constraint(equalTo: listContainer.contentView.leadingAnchor, constant: 24),
-            
-            tableView.topAnchor.constraint(equalTo: transactionsTitle.bottomAnchor, constant: 16),
-            tableView.leadingAnchor.constraint(equalTo: listContainer.contentView.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: listContainer.contentView.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: listContainer.contentView.bottomAnchor)
+            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
         ])
     }
     
-    private func setupBindings() {
-        viewModel.onDataUpdated = { [weak self] in
-            DispatchQueue.main.async {
-                self?.balanceAmountLabel.text = "₦450,000.00" // Formatted example
-                self?.tableView.reloadData()
-            }
-        }
+    private func buildHeader() {
+        headerStack.axis = .horizontal
+        headerStack.distribution = .equalSpacing
+        headerStack.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(headerStack)
+        
+        // Logo Fake
+        let logoLabel = UILabel()
+        logoLabel.text = "MINTYN"
+        logoLabel.font = .systemFont(ofSize: 18, weight: .bold)
+        let logoImage = UIImageView(image: UIImage(systemName: "building.columns.fill"))
+        logoImage.tintColor = UIColor(red: 0.85, green: 0.65, blue: 0.13, alpha: 1.0)
+        let logoStack = UIStackView(arrangedSubviews: [logoImage, logoLabel])
+        logoStack.spacing = 8
+        logoLabel.textColor = .white
+        
+        // Rights icons
+        let chartIcon = UIImageView(image: UIImage(systemName: "chart.bar.fill"))
+        chartIcon.tintColor = .gray
+        
+        let bellBtn = UIButton(type: .system)
+        bellBtn.setImage(UIImage(systemName: "bell.fill"), for: .normal)
+        bellBtn.tintColor = .white
+        bellBtn.backgroundColor = UIColor(white: 0.15, alpha: 1.0)
+        bellBtn.layer.cornerRadius = 18
+        bellBtn.widthAnchor.constraint(equalToConstant: 36).isActive = true
+        bellBtn.heightAnchor.constraint(equalToConstant: 36).isActive = true
+        
+        let rightStack = UIStackView(arrangedSubviews: [chartIcon, bellBtn])
+        rightStack.spacing = 16
+        rightStack.alignment = .center
+        
+        headerStack.addArrangedSubview(logoStack)
+        headerStack.addArrangedSubview(rightStack)
+        
+        NSLayoutConstraint.activate([
+            headerStack.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
+            headerStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            headerStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20)
+        ])
     }
     
-    @objc private func didTapSettings() {
-        UIView.animate(withDuration: 0.1, animations: {
-            self.avatarButton.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
-        }) { _ in
-            UIView.animate(withDuration: 0.1) {
-                self.avatarButton.transform = .identity
+    private func buildAccountInfo() {
+        accountStack.axis = .horizontal
+        accountStack.spacing = 12
+        accountStack.alignment = .center
+        accountStack.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(accountStack)
+        
+        let avatar = UIImageView()
+        avatar.backgroundColor = .systemGray
+        avatar.layer.cornerRadius = 20
+        avatar.clipsToBounds = true
+        avatar.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        avatar.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        avatar.image = UIImage(systemName: "person.crop.circle.fill")
+        avatar.tintColor = .white
+        
+        let vStack = UIStackView()
+        vStack.axis = .vertical
+        let name = UILabel()
+        name.text = "Tunde Lasisi"
+        name.textColor = .white
+        name.font = .systemFont(ofSize: 16, weight: .semibold)
+        
+        let tierLabel = UILabel()
+        let tStr = NSMutableAttributedString(string: "Individual • 11289438943 • ", attributes: [.foregroundColor: UIColor.gray])
+        tStr.append(NSAttributedString(string: "Tier 1", attributes: [.foregroundColor: UIColor(red: 0.85, green: 0.65, blue: 0.13, alpha: 1.0)]))
+        tierLabel.attributedText = tStr
+        tierLabel.font = .systemFont(ofSize: 12)
+        
+        vStack.addArrangedSubview(name)
+        vStack.addArrangedSubview(tierLabel)
+        
+        let switchStack = UIStackView()
+        switchStack.axis = .vertical
+        switchStack.alignment = .trailing
+        let switchLabel = UILabel()
+        switchLabel.text = "Switch Account"
+        switchLabel.textColor = .white
+        switchLabel.font = .systemFont(ofSize: 12)
+        let dropIcon = UIImageView(image: UIImage(systemName: "arrowtriangle.down.fill"))
+        dropIcon.tintColor = .gray
+        dropIcon.widthAnchor.constraint(equalToConstant: 10).isActive = true
+        dropIcon.heightAnchor.constraint(equalToConstant: 10).isActive = true
+        switchStack.addArrangedSubview(switchLabel)
+        switchStack.addArrangedSubview(dropIcon)
+        
+        accountStack.addArrangedSubview(avatar)
+        accountStack.addArrangedSubview(vStack)
+        accountStack.addArrangedSubview(UIView()) // spacer
+        accountStack.addArrangedSubview(switchStack)
+        
+        NSLayoutConstraint.activate([
+            accountStack.topAnchor.constraint(equalTo: headerStack.bottomAnchor, constant: 32),
+            accountStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            accountStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20)
+        ])
+    }
+    
+    private func buildBalanceCard() {
+        balanceCard.backgroundColor = UIColor(white: 0.12, alpha: 1.0)
+        balanceCard.layer.cornerRadius = 20
+        balanceCard.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(balanceCard)
+        
+        let amtLabel = UILabel()
+        amtLabel.text = "₦500,000,000.00"
+        amtLabel.font = .systemFont(ofSize: 26, weight: .bold)
+        amtLabel.textColor = .white
+        amtLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        let addMoneyBtn = UIButton(type: .system)
+        addMoneyBtn.setTitle("+ ADD MONEY", for: .normal)
+        addMoneyBtn.setTitleColor(.white, for: .normal)
+        addMoneyBtn.titleLabel?.font = .systemFont(ofSize: 12, weight: .bold)
+        addMoneyBtn.backgroundColor = UIColor(red: 0.7, green: 0.5, blue: 0.15, alpha: 1.0)
+        addMoneyBtn.layer.cornerRadius = 8
+        addMoneyBtn.translatesAutoresizingMaskIntoConstraints = false
+        
+        let sep = UIView()
+        sep.backgroundColor = UIColor(white: 0.2, alpha: 1.0)
+        sep.translatesAutoresizingMaskIntoConstraints = false
+        
+        let ledgerLabel = UILabel()
+        ledgerLabel.text = "Ledger balance:\n₦500,000,000.00"
+        ledgerLabel.numberOfLines = 2
+        ledgerLabel.font = .systemFont(ofSize: 12)
+        ledgerLabel.textColor = .lightGray
+        ledgerLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        let hideBtn = UIButton(type: .system)
+        hideBtn.setImage(UIImage(systemName: "eye.slash.fill"), for: .normal)
+        hideBtn.setTitle(" Hide Balance", for: .normal)
+        hideBtn.tintColor = UIColor(red: 0.85, green: 0.65, blue: 0.13, alpha: 1.0)
+        hideBtn.titleLabel?.font = .systemFont(ofSize: 12)
+        hideBtn.translatesAutoresizingMaskIntoConstraints = false
+        
+        balanceCard.addSubview(amtLabel)
+        balanceCard.addSubview(addMoneyBtn)
+        balanceCard.addSubview(sep)
+        balanceCard.addSubview(ledgerLabel)
+        balanceCard.addSubview(hideBtn)
+        
+        NSLayoutConstraint.activate([
+            balanceCard.topAnchor.constraint(equalTo: accountStack.bottomAnchor, constant: 24),
+            balanceCard.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            balanceCard.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            
+            amtLabel.topAnchor.constraint(equalTo: balanceCard.topAnchor, constant: 24),
+            amtLabel.leadingAnchor.constraint(equalTo: balanceCard.leadingAnchor, constant: 20),
+            
+            addMoneyBtn.centerYAnchor.constraint(equalTo: amtLabel.centerYAnchor),
+            addMoneyBtn.trailingAnchor.constraint(equalTo: balanceCard.trailingAnchor, constant: -20),
+            addMoneyBtn.widthAnchor.constraint(equalToConstant: 100),
+            addMoneyBtn.heightAnchor.constraint(equalToConstant: 32),
+            
+            sep.topAnchor.constraint(equalTo: amtLabel.bottomAnchor, constant: 24),
+            sep.leadingAnchor.constraint(equalTo: balanceCard.leadingAnchor, constant: 20),
+            sep.trailingAnchor.constraint(equalTo: balanceCard.trailingAnchor, constant: -20),
+            sep.heightAnchor.constraint(equalToConstant: 1),
+            
+            ledgerLabel.topAnchor.constraint(equalTo: sep.bottomAnchor, constant: 16),
+            ledgerLabel.leadingAnchor.constraint(equalTo: balanceCard.leadingAnchor, constant: 20),
+            ledgerLabel.bottomAnchor.constraint(equalTo: balanceCard.bottomAnchor, constant: -20),
+            
+            hideBtn.centerYAnchor.constraint(equalTo: ledgerLabel.centerYAnchor),
+            hideBtn.trailingAnchor.constraint(equalTo: balanceCard.trailingAnchor, constant: -20)
+        ])
+    }
+    
+    private func buildUpdateAccount() {
+        updateAccountView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(updateAccountView)
+        
+        let lineTop = UIView()
+        lineTop.backgroundColor = UIColor(white: 0.15, alpha: 1.0)
+        lineTop.translatesAutoresizingMaskIntoConstraints = false
+        updateAccountView.addSubview(lineTop)
+        
+        let title = UILabel()
+        title.text = "Update Account"
+        title.textColor = .white
+        title.font = .systemFont(ofSize: 16, weight: .medium)
+        title.translatesAutoresizingMaskIntoConstraints = false
+        updateAccountView.addSubview(title)
+        
+        let icon = UIImageView(image: UIImage(systemName: "info.circle.fill"))
+        icon.tintColor = .systemRed
+        icon.translatesAutoresizingMaskIntoConstraints = false
+        updateAccountView.addSubview(icon)
+        
+        let desc = UILabel()
+        desc.text = "Update your account to get unlimited access to your account"
+        desc.textColor = .gray
+        desc.font = .systemFont(ofSize: 13)
+        desc.numberOfLines = 2
+        desc.translatesAutoresizingMaskIntoConstraints = false
+        updateAccountView.addSubview(desc)
+        
+        let arr = UIImageView(image: UIImage(systemName: "chevron.right"))
+        arr.tintColor = UIColor(red: 0.85, green: 0.65, blue: 0.13, alpha: 1.0)
+        arr.translatesAutoresizingMaskIntoConstraints = false
+        updateAccountView.addSubview(arr)
+        
+        NSLayoutConstraint.activate([
+            updateAccountView.topAnchor.constraint(equalTo: balanceCard.bottomAnchor, constant: 24),
+            updateAccountView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            updateAccountView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            
+            lineTop.topAnchor.constraint(equalTo: updateAccountView.topAnchor),
+            lineTop.leadingAnchor.constraint(equalTo: updateAccountView.leadingAnchor),
+            lineTop.trailingAnchor.constraint(equalTo: updateAccountView.trailingAnchor),
+            lineTop.heightAnchor.constraint(equalToConstant: 1),
+            
+            title.topAnchor.constraint(equalTo: lineTop.bottomAnchor, constant: 16),
+            title.leadingAnchor.constraint(equalTo: updateAccountView.leadingAnchor),
+            
+            icon.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 8),
+            icon.leadingAnchor.constraint(equalTo: updateAccountView.leadingAnchor),
+            icon.widthAnchor.constraint(equalToConstant: 16),
+            icon.heightAnchor.constraint(equalToConstant: 16),
+            
+            desc.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 8),
+            desc.leadingAnchor.constraint(equalTo: icon.trailingAnchor, constant: 8),
+            desc.trailingAnchor.constraint(equalTo: arr.leadingAnchor, constant: -16),
+            desc.bottomAnchor.constraint(equalTo: updateAccountView.bottomAnchor),
+            
+            arr.centerYAnchor.constraint(equalTo: desc.centerYAnchor),
+            arr.trailingAnchor.constraint(equalTo: updateAccountView.trailingAnchor)
+        ])
+    }
+    
+    private func buildColorGrid() {
+        colorGridStack.axis = .horizontal
+        colorGridStack.spacing = 16
+        colorGridStack.distribution = .fillEqually
+        colorGridStack.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(colorGridStack)
+        
+        let items = [
+            ColorGridItem(title: "Product Updates", color: UIColor(red: 0.4, green: 0.3, blue: 0.9, alpha: 1.0), icon: "bell.badge.fill"),
+            ColorGridItem(title: "Gift cards", color: UIColor(red: 0.1, green: 0.6, blue: 0.3, alpha: 1.0), icon: "gift.fill"),
+            ColorGridItem(title: "Cardless", color: UIColor(red: 0.9, green: 0.1, blue: 0.2, alpha: 1.0), icon: "creditcard.fill")
+        ]
+        
+        for item in items {
+            let v = UIButton(type: .system)
+            v.backgroundColor = item.color
+            v.layer.cornerRadius = 16
+            
+            let icon = UIImageView(image: UIImage(systemName: item.icon))
+            icon.tintColor = .white
+            icon.contentMode = .scaleAspectFit
+            icon.translatesAutoresizingMaskIntoConstraints = false
+            v.addSubview(icon)
+            
+            let l = UILabel()
+            l.text = item.title
+            l.textColor = .white
+            l.font = .systemFont(ofSize: 11, weight: .medium)
+            l.textAlignment = .center
+            l.translatesAutoresizingMaskIntoConstraints = false
+            v.addSubview(l)
+            
+            NSLayoutConstraint.activate([
+                v.heightAnchor.constraint(equalToConstant: 110),
+                icon.centerXAnchor.constraint(equalTo: v.centerXAnchor),
+                icon.centerYAnchor.constraint(equalTo: v.centerYAnchor, constant: -10),
+                icon.widthAnchor.constraint(equalToConstant: 30),
+                icon.heightAnchor.constraint(equalToConstant: 30),
+                l.bottomAnchor.constraint(equalTo: v.bottomAnchor, constant: -12),
+                l.centerXAnchor.constraint(equalTo: v.centerXAnchor)
+            ])
+            
+            if item.title == "Cardless" {
+                v.addTarget(self, action: #selector(didTapCardless), for: .touchUpInside)
             }
-            let settingsVC = SettingsViewController()
-            self.navigationController?.pushViewController(settingsVC, animated: true)
+            
+            colorGridStack.addArrangedSubview(v)
         }
+        
+        NSLayoutConstraint.activate([
+            colorGridStack.topAnchor.constraint(equalTo: updateAccountView.bottomAnchor, constant: 32),
+            colorGridStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            colorGridStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20)
+        ])
+    }
+    
+    private func buildQuickAccess() {
+        let titleLine = UIView()
+        titleLine.backgroundColor = UIColor(white: 0.15, alpha: 1.0)
+        titleLine.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(titleLine)
+        
+        quickAccessLabel.text = "Quick Access"
+        quickAccessLabel.textColor = .white
+        quickAccessLabel.font = .systemFont(ofSize: 16, weight: .medium)
+        quickAccessLabel.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(quickAccessLabel)
+        
+        quickAccessGrid.axis = .horizontal
+        quickAccessGrid.spacing = 16
+        quickAccessGrid.distribution = .fillEqually
+        quickAccessGrid.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(quickAccessGrid)
+        
+        let items = [
+            QuickAccessItem(title: "Transfer", icon: "arrow.right.arrow.left"),
+            QuickAccessItem(title: "Top Up", icon: "iphone"),
+            QuickAccessItem(title: "Pay Bill", icon: "doc.text"),
+            QuickAccessItem(title: "Savings", icon: "banknote.fill")
+        ]
+        
+        for item in items {
+            let container = UIButton(type: .system)
+            container.backgroundColor = UIColor(white: 0.12, alpha: 1.0)
+            container.layer.cornerRadius = 16
+            
+            let icon = UIImageView(image: UIImage(systemName: item.icon))
+            icon.tintColor = UIColor(red: 0.85, green: 0.65, blue: 0.13, alpha: 1.0)
+            icon.contentMode = .scaleAspectFit
+            icon.translatesAutoresizingMaskIntoConstraints = false
+            container.addSubview(icon)
+            
+            let l = UILabel()
+            l.text = item.title
+            l.textColor = .white
+            l.font = .systemFont(ofSize: 12)
+            l.textAlignment = .center
+            l.translatesAutoresizingMaskIntoConstraints = false
+            container.addSubview(l)
+            
+            NSLayoutConstraint.activate([
+                container.heightAnchor.constraint(equalToConstant: 80),
+                icon.centerXAnchor.constraint(equalTo: container.centerXAnchor),
+                icon.topAnchor.constraint(equalTo: container.topAnchor, constant: 16),
+                icon.widthAnchor.constraint(equalToConstant: 24),
+                icon.heightAnchor.constraint(equalToConstant: 24),
+                l.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -12),
+                l.centerXAnchor.constraint(equalTo: container.centerXAnchor)
+            ])
+            
+            if item.title == "Transfer" { container.addTarget(self, action: #selector(didTapTransfer), for: .touchUpInside) }
+            if item.title == "Top Up" { container.addTarget(self, action: #selector(didTapTopUp), for: .touchUpInside) }
+            if item.title == "Pay Bill" { container.addTarget(self, action: #selector(didTapBills), for: .touchUpInside) }
+            
+            quickAccessGrid.addArrangedSubview(container)
+        }
+        
+        NSLayoutConstraint.activate([
+            titleLine.topAnchor.constraint(equalTo: colorGridStack.bottomAnchor, constant: 32),
+            titleLine.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            titleLine.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            titleLine.heightAnchor.constraint(equalToConstant: 1),
+            
+            quickAccessLabel.topAnchor.constraint(equalTo: titleLine.bottomAnchor, constant: 16),
+            quickAccessLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            
+            quickAccessGrid.topAnchor.constraint(equalTo: quickAccessLabel.bottomAnchor, constant: 16),
+            quickAccessGrid.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            quickAccessGrid.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            quickAccessGrid.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -40)
+        ])
     }
     
     // Quick Actions
@@ -249,23 +441,6 @@ class HomeViewController: UIViewController {
     
     @objc private func didTapTransfer() { presentFeature(TransferViewController()) }
     @objc private func didTapBills() { presentFeature(PayBillsViewController()) }
-    @objc private func didTapTopUp() { presentFeature(TopUpViewController()) }
-}
-
-extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { return viewModel.transactions.count }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: TransactionCell.identifier, for: indexPath) as? TransactionCell else { return UITableViewCell() }
-        cell.configure(with: viewModel.transactions[indexPath.row])
-        cell.alpha = 0
-        cell.transform = CGAffineTransform(translationX: 0, y: 10)
-        UIView.animate(withDuration: 0.3, delay: Double(indexPath.row) * 0.05, options: .curveEaseOut, animations: {
-            cell.alpha = 1
-            cell.transform = .identity
-        }, completion: nil)
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat { return 76 }
+    @objc private func didTapTopUp() { presentFeature(TopUpViewController()) } // ATM logic or standard Topup
+    @objc private func didTapCardless() { presentFeature(CardlessATMViewController()) }
 }
