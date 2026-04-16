@@ -24,6 +24,7 @@ class SettingsViewModel {
         ]),
         SettingsSectionModel(title: "System", options: [
             SettingsOption(title: "Help & Support", iconName: "questionmark.circle"),
+            SettingsOption(title: "Legal", iconName: "doc.plaintext"),
             SettingsOption(title: "Logout", iconName: "arrow.right.square")
         ])
     ]
