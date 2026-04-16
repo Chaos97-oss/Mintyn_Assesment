@@ -15,21 +15,11 @@ class SplashViewController: UIViewController {
     // MARK: - UI Components
     private let logoImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "MintynLogo")
+        imageView.image = UIImage(named: "MintynSplashLogo")
         imageView.contentMode = .scaleAspectFit
         imageView.alpha = 0
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
-    }()
-    
-    private let brandTitleLabel: UILabel = {
-        let label = UILabel()
-        label.text = "MINTYN®"
-        label.font = .systemFont(ofSize: 24, weight: .semibold)
-        label.textColor = .white
-        label.alpha = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
     }()
     
     private let loaderContainer: UIStackView = {
@@ -61,7 +51,6 @@ class SplashViewController: UIViewController {
         view.backgroundColor = .black
         
         view.addSubview(logoImageView)
-        view.addSubview(brandTitleLabel)
         view.addSubview(loaderContainer)
         
         loadingBars.forEach {
@@ -79,13 +68,10 @@ class SplashViewController: UIViewController {
         NSLayoutConstraint.activate([
             logoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             logoImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -20),
-            logoImageView.widthAnchor.constraint(equalToConstant: 80),
-            logoImageView.heightAnchor.constraint(equalToConstant: 80),
+            logoImageView.widthAnchor.constraint(equalToConstant: 240),
+            logoImageView.heightAnchor.constraint(equalToConstant: 240),
             
-            brandTitleLabel.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 12),
-            brandTitleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            
-            loaderContainer.topAnchor.constraint(equalTo: brandTitleLabel.bottomAnchor, constant: 30),
+            loaderContainer.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 40),
             loaderContainer.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
@@ -97,7 +83,6 @@ class SplashViewController: UIViewController {
         
         let logoAnimator = UIViewPropertyAnimator(duration: Constants.logoAnimationDuration, curve: .easeOut) {
             self.logoImageView.alpha = 1.0
-            self.brandTitleLabel.alpha = 1.0
             self.logoImageView.transform = CGAffineTransform(scaleX: Constants.logoFinalScale, y: Constants.logoFinalScale)
         }
         
