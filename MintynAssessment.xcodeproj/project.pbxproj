@@ -41,6 +41,10 @@
 		045495742F8FC06A009FF3F4 /* SOLUTION.md in Resources */ = {isa = PBXBuildFile; fileRef = 045495732F8FC06A009FF3F4 /* SOLUTION.md */; };
 		045495772F8FC086009FF3F4 /* LiquidBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045495752F8FC085009FF3F4 /* LiquidBackgroundView.swift */; };
 		045495782F8FC086009FF3F4 /* CustomAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045495762F8FC086009FF3F4 /* CustomAlertViewController.swift */; };
+		045C1B002F902536004B2A3E /* TransferViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C1AFC2F902536004B2A3E /* TransferViewController.swift */; };
+		045C1B012F902536004B2A3E /* FeatureBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C1AFD2F902536004B2A3E /* FeatureBaseViewController.swift */; };
+		045C1B022F902536004B2A3E /* TopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C1AFE2F902536004B2A3E /* TopUpViewController.swift */; };
+		045C1B032F902536004B2A3E /* PayBillsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C1AFF2F902536004B2A3E /* PayBillsViewController.swift */; };
 		200B4E59934DE09871006527 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D2CE04A4820567F298835A /* SettingsViewController.swift */; };
 		425966DAAFD07396B56C2759 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8A459406A2CA0177A037119 /* HomeViewController.swift */; };
 		4AA682C53D25F1B53E2C3F1A /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E83E4B159E6E17037DE3FC6 /* HomeViewModel.swift */; };
@@ -105,8 +109,12 @@
 		0436661D2F8F77A100BA1411 /* AuthServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AuthServiceTests.swift; path = ../MintynAssessment/Tests/UnitTests/AuthServiceTests.swift; sourceTree = "<group>"; };
 		0436661E2F8F77A100BA1411 /* LoginViewModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginViewModelTests.swift; path = ../MintynAssessment/Tests/UnitTests/LoginViewModelTests.swift; sourceTree = "<group>"; };
 		045495732F8FC06A009FF3F4 /* SOLUTION.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = SOLUTION.md; sourceTree = "<group>"; };
-		045495752F8FC085009FF3F4 /* LiquidBackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LiquidBackgroundView.swift; path = MintynAssessment/Components/LiquidBackgroundView.swift; sourceTree = "<group>"; };
-		045495762F8FC086009FF3F4 /* CustomAlertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomAlertViewController.swift; path = MintynAssessment/Components/CustomAlertViewController.swift; sourceTree = "<group>"; };
+		045495752F8FC085009FF3F4 /* LiquidBackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiquidBackgroundView.swift; sourceTree = "<group>"; };
+		045495762F8FC086009FF3F4 /* CustomAlertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomAlertViewController.swift; sourceTree = "<group>"; };
+		045C1AFC2F902536004B2A3E /* TransferViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TransferViewController.swift; path = Home/TransferViewController.swift; sourceTree = "<group>"; };
+		045C1AFD2F902536004B2A3E /* FeatureBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeatureBaseViewController.swift; path = Home/FeatureBaseViewController.swift; sourceTree = "<group>"; };
+		045C1AFE2F902536004B2A3E /* TopUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TopUpViewController.swift; path = Home/TopUpViewController.swift; sourceTree = "<group>"; };
+		045C1AFF2F902536004B2A3E /* PayBillsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PayBillsViewController.swift; path = Home/PayBillsViewController.swift; sourceTree = "<group>"; };
 		12184E7533F9CA96FBC2C3E5 /* LoginViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LoginViewModel.swift; path = Auth/LoginViewModel.swift; sourceTree = "<group>"; };
 		473FCCF1E6AE998872AE18E8 /* SettingsViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SettingsViewModel.swift; path = Settings/SettingsViewModel.swift; sourceTree = "<group>"; };
 		5CB0AB03395E13C522757A90 /* SplashViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SplashViewController.swift; path = Splash/SplashViewController.swift; sourceTree = "<group>"; };
@@ -145,8 +153,6 @@
 		0436659A2F8F1E5700BA1411 = {
 			isa = PBXGroup;
 			children = (
-				045495762F8FC086009FF3F4 /* CustomAlertViewController.swift */,
-				045495752F8FC085009FF3F4 /* LiquidBackgroundView.swift */,
 				045495732F8FC06A009FF3F4 /* SOLUTION.md */,
 				043665A52F8F1E5700BA1411 /* MintynAssessment */,
 				043665BF2F8F1E5A00BA1411 /* MintynAssessmentTests */,
@@ -215,6 +221,10 @@
 				9E83E4B159E6E17037DE3FC6 /* HomeViewModel.swift */,
 				7AB9FFFF1BD0A5D9600DA832 /* Transaction.swift */,
 				C8A459406A2CA0177A037119 /* HomeViewController.swift */,
+				045C1AFD2F902536004B2A3E /* FeatureBaseViewController.swift */,
+				045C1AFF2F902536004B2A3E /* PayBillsViewController.swift */,
+				045C1AFE2F902536004B2A3E /* TopUpViewController.swift */,
+				045C1AFC2F902536004B2A3E /* TransferViewController.swift */,
 				5CB0AB03395E13C522757A90 /* SplashViewController.swift */,
 				12184E7533F9CA96FBC2C3E5 /* LoginViewModel.swift */,
 				CA7DFE8F82F9DBB043B8DFFD /* MockAuthService.swift */,
@@ -280,6 +290,8 @@
 		043666022F8F239000BA1411 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				045495762F8FC086009FF3F4 /* CustomAlertViewController.swift */,
+				045495752F8FC085009FF3F4 /* LiquidBackgroundView.swift */,
 				043666142F8F744C00BA1411 /* CarouselCardCell.swift */,
 				043666132F8F744C00BA1411 /* PasswordField.swift */,
 				043666152F8F744C00BA1411 /* PhoneNumberField.swift */,
@@ -447,6 +459,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				045C1B012F902536004B2A3E /* FeatureBaseViewController.swift in Sources */,
 				043665EE2F8F222200BA1411 /* SettingsViewModel.swift in Sources */,
 				0436660C2F8F239100BA1411 /* PrimaryButton.swift in Sources */,
 				043666172F8F744C00BA1411 /* CarouselCardCell.swift in Sources */,
@@ -462,12 +475,15 @@
 				043665A92F8F1E5700BA1411 /* SceneDelegate.swift in Sources */,
 				0436660A2F8F239100BA1411 /* PaddingTextField.swift in Sources */,
 				043665EF2F8F222200BA1411 /* SettingsViewController.swift in Sources */,
+				045C1B002F902536004B2A3E /* TransferViewController.swift in Sources */,
 				043665F62F8F222200BA1411 /* LoginViewController.swift in Sources */,
 				043666182F8F744C00BA1411 /* PhoneNumberField.swift in Sources */,
+				045C1B022F902536004B2A3E /* TopUpViewController.swift in Sources */,
 				043665F32F8F222200BA1411 /* SplashViewController.swift in Sources */,
 				045495772F8FC086009FF3F4 /* LiquidBackgroundView.swift in Sources */,
 				80E365C369FA2618DF5051B2 /* SettingsViewModel.swift in Sources */,
 				200B4E59934DE09871006527 /* SettingsViewController.swift in Sources */,
+				045C1B032F902536004B2A3E /* PayBillsViewController.swift in Sources */,
 				4AA682C53D25F1B53E2C3F1A /* HomeViewModel.swift in Sources */,
 				043666162F8F744C00BA1411 /* PasswordField.swift in Sources */,
 				79427B79A57C02598EAAFFC2 /* Transaction.swift in Sources */,
