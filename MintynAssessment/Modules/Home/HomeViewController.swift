@@ -192,7 +192,7 @@ class HomeViewController: UIViewController {
         sep.translatesAutoresizingMaskIntoConstraints = false
         
         let ledgerLabel = UILabel()
-        ledgerLabel.text = "Ledger balance:\n₦500,000,000.00"
+        ledgerLabel.text = "Ledger balance:\n₦500,000.00"
         ledgerLabel.numberOfLines = 2
         ledgerLabel.font = .systemFont(ofSize: 12)
         ledgerLabel.textColor = .lightGray
