@@ -58,6 +58,10 @@ class LoginViewController: UIViewController {
         pc.currentPage = 0
         pc.currentPageIndicatorTintColor = UIColor(red: 0.85, green: 0.65, blue: 0.13, alpha: 1.0)
         pc.pageIndicatorTintColor = .darkGray
+        if #available(iOS 14.0, *) {
+            pc.preferredIndicatorImage = UIImage(systemName: "circle.fill")
+            pc.setIndicatorImage(UIImage(systemName: "capsule.fill"), forPage: 0)
+        }
         return pc
     }()
     
@@ -358,9 +362,20 @@ extension LoginViewController: UICollectionViewDelegate, UICollectionViewDataSou
         return cell
     }
     
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let offset = scrollView.contentOffset.x
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let width = scrollView.bounds.width
-        pageControl.currentPage = Int(offset / width)
+        guard width > 0 else { return }
+        
+        let page = Int(round(scrollView.contentOffset.x / width))
+        if pageControl.currentPage != page {
+            pageControl.currentPage = page
+            
+            if #available(iOS 14.0, *) {
+                for i in 0..<pageControl.numberOfPages {
+                    let icon = (i == page) ? "capsule.fill" : "circle.fill"
+                    pageControl.setIndicatorImage(UIImage(systemName: icon), forPage: i)
+                }
+            }
+        }
     }
 }
