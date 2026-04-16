@@ -6,13 +6,13 @@ class PayBillsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor(white: 0.98, alpha: 1.0)
+        view.backgroundColor = .black
         setupUI()
     }
     
     private func setupUI() {
         let headerView = UIView()
-        headerView.backgroundColor = .white
+        headerView.backgroundColor = UIColor(white: 0.05, alpha: 1.0)
         headerView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(headerView)
         
@@ -27,7 +27,7 @@ class PayBillsViewController: UIViewController {
         
         let titleLabel = UILabel()
         titleLabel.text = "Pay Bills"
-        titleLabel.textColor = .black
+        titleLabel.textColor = .white
         titleLabel.font = .systemFont(ofSize: 18, weight: .bold)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         headerView.addSubview(titleLabel)
@@ -47,14 +47,14 @@ class PayBillsViewController: UIViewController {
         let t2 = UILabel()
         t2.text = "Bills Manager"
         t2.textAlignment = .center
-        t2.textColor = .black
+        t2.textColor = .lightGray
         t2.font = .systemFont(ofSize: 14, weight: .medium)
         
         tabsStack.addArrangedSubview(t1)
         tabsStack.addArrangedSubview(t2)
         
         let tabBaseLine = UIView()
-        tabBaseLine.backgroundColor = UIColor(white: 0.9, alpha: 1.0)
+        tabBaseLine.backgroundColor = UIColor(white: 0.2, alpha: 1.0)
         tabBaseLine.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tabBaseLine)
         
@@ -64,7 +64,7 @@ class PayBillsViewController: UIViewController {
         
         let selTitle = UILabel()
         selTitle.text = "Choose a category"
-        selTitle.textColor = .black
+        selTitle.textColor = .white
         selTitle.font = .systemFont(ofSize: 16, weight: .medium)
         selTitle.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(selTitle)
@@ -136,13 +136,13 @@ class PayBillsViewController: UIViewController {
     
     private func buildSquareOption(title: String, icon: String, active: Bool) -> UIView {
         let v = UIView()
-        v.backgroundColor = .white
+        v.backgroundColor = UIColor(white: 0.12, alpha: 1.0)
         v.layer.cornerRadius = 16
         if active {
             v.layer.borderWidth = 1
             v.layer.borderColor = UIColor(red: 0.85, green: 0.65, blue: 0.13, alpha: 1.0).cgColor
         } else {
-            v.layer.shadowColor = UIColor.black.cgColor
+            v.layer.shadowColor = UIColor.clear.cgColor
             v.layer.shadowOpacity = 0.05
             v.layer.shadowOffset = CGSize(width: 0, height: 4)
             v.layer.shadowRadius = 8
@@ -166,7 +166,7 @@ class PayBillsViewController: UIViewController {
         
         let l = UILabel()
         l.text = title
-        l.textColor = .black
+        l.textColor = .white
         l.font = .systemFont(ofSize: 13, weight: .medium)
         l.textAlignment = .center
         l.translatesAutoresizingMaskIntoConstraints = false

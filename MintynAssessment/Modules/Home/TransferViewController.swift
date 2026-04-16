@@ -7,13 +7,13 @@ class TransferViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor(white: 0.98, alpha: 1.0)
+        view.backgroundColor = .black
         setupUI()
     }
     
     private func setupUI() {
         let headerView = UIView()
-        headerView.backgroundColor = .white
+        headerView.backgroundColor = UIColor(white: 0.05, alpha: 1.0)
         headerView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(headerView)
         
@@ -28,14 +28,14 @@ class TransferViewController: UIViewController {
         
         let titleLabel = UILabel()
         titleLabel.text = "New Money Transfer"
-        titleLabel.textColor = .black
+        titleLabel.textColor = .white
         titleLabel.font = .systemFont(ofSize: 18, weight: .bold)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         headerView.addSubview(titleLabel)
         
         let sendMoneyTo = UILabel()
         sendMoneyTo.text = "Send Money to"
-        sendMoneyTo.textColor = .black
+        sendMoneyTo.textColor = .white
         sendMoneyTo.font = .systemFont(ofSize: 16, weight: .medium)
         sendMoneyTo.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(sendMoneyTo)
@@ -67,14 +67,14 @@ class TransferViewController: UIViewController {
         let t2 = UILabel()
         t2.text = "Recent Recipients"
         t2.textAlignment = .center
-        t2.textColor = .black
+        t2.textColor = .lightGray
         t2.font = .systemFont(ofSize: 14, weight: .medium)
         
         tabsStack.addArrangedSubview(t1)
         tabsStack.addArrangedSubview(t2)
         
         let tabBaseLine = UIView()
-        tabBaseLine.backgroundColor = UIColor(white: 0.9, alpha: 1.0)
+        tabBaseLine.backgroundColor = UIColor(white: 0.2, alpha: 1.0)
         tabBaseLine.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tabBaseLine)
         
@@ -135,9 +135,9 @@ class TransferViewController: UIViewController {
     
     private func buildSquareOption(title: String, icon: String) -> UIView {
         let v = UIView()
-        v.backgroundColor = .white
+        v.backgroundColor = UIColor(white: 0.12, alpha: 1.0)
         v.layer.cornerRadius = 16
-        v.layer.shadowColor = UIColor.black.cgColor
+        v.layer.shadowColor = UIColor.clear.cgColor
         v.layer.shadowOpacity = 0.05
         v.layer.shadowOffset = CGSize(width: 0, height: 4)
         v.layer.shadowRadius = 8
@@ -155,7 +155,7 @@ class TransferViewController: UIViewController {
         
         let l = UILabel()
         l.text = title
-        l.textColor = .black
+        l.textColor = .white
         l.font = .systemFont(ofSize: 13, weight: .medium)
         l.textAlignment = .center
         l.translatesAutoresizingMaskIntoConstraints = false
@@ -188,12 +188,13 @@ extension TransferViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
         cell.backgroundColor = .clear
         cell.textLabel?.text = "Paul Dureke"
+        cell.textLabel?.textColor = .white
         cell.textLabel?.font = .systemFont(ofSize: 14, weight: .semibold)
         cell.detailTextLabel?.text = "0023849310 - Zenith Bank"
         cell.detailTextLabel?.textColor = .gray
         
         let v = UIView()
-        v.backgroundColor = UIColor(white: 0.95, alpha: 1.0)
+        v.backgroundColor = UIColor(white: 0.15, alpha: 1.0)
         v.layer.cornerRadius = 12
         cell.selectedBackgroundView = v
         return cell

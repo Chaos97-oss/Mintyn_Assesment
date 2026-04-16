@@ -93,6 +93,7 @@ class HomeViewController: UIViewController {
         bellBtn.layer.cornerRadius = 18
         bellBtn.widthAnchor.constraint(equalToConstant: 36).isActive = true
         bellBtn.heightAnchor.constraint(equalToConstant: 36).isActive = true
+        bellBtn.addTarget(self, action: #selector(didTapBell), for: .touchUpInside)
         
         let rightStack = UIStackView(arrangedSubviews: [chartIcon, bellBtn])
         rightStack.spacing = 16
@@ -344,6 +345,12 @@ class HomeViewController: UIViewController {
             if item.title == "Cardless" {
                 v.addTarget(self, action: #selector(didTapCardless), for: .touchUpInside)
             }
+            if item.title == "Product Updates" {
+                v.addTarget(self, action: #selector(didTapProducts), for: .touchUpInside)
+            }
+            if item.title == "Gift cards" {
+                v.addTarget(self, action: #selector(didTapGiftCards), for: .touchUpInside)
+            }
             
             colorGridStack.addArrangedSubview(v)
         }
@@ -412,6 +419,7 @@ class HomeViewController: UIViewController {
             if item.title == "Transfer" { container.addTarget(self, action: #selector(didTapTransfer), for: .touchUpInside) }
             if item.title == "Top Up" { container.addTarget(self, action: #selector(didTapTopUp), for: .touchUpInside) }
             if item.title == "Pay Bill" { container.addTarget(self, action: #selector(didTapBills), for: .touchUpInside) }
+            if item.title == "Savings" { container.addTarget(self, action: #selector(didTapSavings), for: .touchUpInside) }
             
             quickAccessGrid.addArrangedSubview(container)
         }
@@ -441,6 +449,14 @@ class HomeViewController: UIViewController {
     
     @objc private func didTapTransfer() { presentFeature(TransferViewController()) }
     @objc private func didTapBills() { presentFeature(PayBillsViewController()) }
-    @objc private func didTapTopUp() { presentFeature(TopUpViewController()) } // ATM logic or standard Topup
+    @objc private func didTapTopUp() { presentFeature(TopUpViewController()) } 
     @objc private func didTapCardless() { presentFeature(CardlessATMViewController()) }
+    
+    @objc private func didTapBell() {
+        navigationController?.pushViewController(SettingsViewController(), animated: true)
+    }
+    
+    @objc private func didTapProducts() { presentFeature(ProductUpdatesViewController()) }
+    @objc private func didTapGiftCards() { presentFeature(GiftCardsViewController()) }
+    @objc private func didTapSavings() { presentFeature(SavingsViewController()) }
 }
