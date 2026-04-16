@@ -21,6 +21,11 @@ class HomeViewController: UIViewController {
     private let quickAccessLabel = UILabel()
     private let quickAccessGrid = UIStackView()
     
+    private let amtLabel = UILabel()
+    private let ledgerLabel = UILabel()
+    private let hideBtn = UIButton(type: .system)
+    private var isBalanceHidden = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupBackground()
@@ -76,8 +81,9 @@ class HomeViewController: UIViewController {
         let logoLabel = UILabel()
         logoLabel.text = "MINTYN"
         logoLabel.font = .systemFont(ofSize: 18, weight: .bold)
-        let logoImage = UIImageView(image: UIImage(systemName: "building.columns.fill"))
-        logoImage.tintColor = UIColor(red: 0.85, green: 0.65, blue: 0.13, alpha: 1.0)
+        let logoImage = UIImageView(image: UIImage(named: "MintynLogo"))
+        logoImage.contentMode = .scaleAspectFit
+        logoImage.widthAnchor.constraint(equalToConstant: 24).isActive = true
         let logoStack = UIStackView(arrangedSubviews: [logoImage, logoLabel])
         logoStack.spacing = 8
         logoLabel.textColor = .white
@@ -154,6 +160,8 @@ class HomeViewController: UIViewController {
         dropIcon.heightAnchor.constraint(equalToConstant: 10).isActive = true
         switchStack.addArrangedSubview(switchLabel)
         switchStack.addArrangedSubview(dropIcon)
+        switchStack.isUserInteractionEnabled = true
+        switchStack.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapSwitchAccount)))
         
         accountStack.addArrangedSubview(avatar)
         accountStack.addArrangedSubview(vStack)
@@ -173,7 +181,6 @@ class HomeViewController: UIViewController {
         balanceCard.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(balanceCard)
         
-        let amtLabel = UILabel()
         amtLabel.text = "₦500,000,000.00"
         amtLabel.font = .systemFont(ofSize: 26, weight: .bold)
         amtLabel.textColor = .white
@@ -186,24 +193,24 @@ class HomeViewController: UIViewController {
         addMoneyBtn.backgroundColor = UIColor(red: 0.7, green: 0.5, blue: 0.15, alpha: 1.0)
         addMoneyBtn.layer.cornerRadius = 8
         addMoneyBtn.translatesAutoresizingMaskIntoConstraints = false
+        addMoneyBtn.addTarget(self, action: #selector(didTapAddMoney), for: .touchUpInside)
         
         let sep = UIView()
         sep.backgroundColor = UIColor(white: 0.2, alpha: 1.0)
         sep.translatesAutoresizingMaskIntoConstraints = false
         
-        let ledgerLabel = UILabel()
-        ledgerLabel.text = "Ledger balance:\n₦500,000.00"
+        ledgerLabel.text = "Ledger balance:\n₦500,000,000.00"
         ledgerLabel.numberOfLines = 2
         ledgerLabel.font = .systemFont(ofSize: 12)
         ledgerLabel.textColor = .lightGray
         ledgerLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        let hideBtn = UIButton(type: .system)
         hideBtn.setImage(UIImage(systemName: "eye.slash.fill"), for: .normal)
         hideBtn.setTitle(" Hide Balance", for: .normal)
         hideBtn.tintColor = UIColor(red: 0.85, green: 0.65, blue: 0.13, alpha: 1.0)
         hideBtn.titleLabel?.font = .systemFont(ofSize: 12)
         hideBtn.translatesAutoresizingMaskIntoConstraints = false
+        hideBtn.addTarget(self, action: #selector(didTapHideBalance), for: .touchUpInside)
         
         balanceCard.addSubview(amtLabel)
         balanceCard.addSubview(addMoneyBtn)
@@ -240,6 +247,8 @@ class HomeViewController: UIViewController {
     
     private func buildUpdateAccount() {
         updateAccountView.translatesAutoresizingMaskIntoConstraints = false
+        updateAccountView.isUserInteractionEnabled = true
+        updateAccountView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapUpdateAccount)))
         contentView.addSubview(updateAccountView)
         
         let lineTop = UIView()
@@ -459,4 +468,22 @@ class HomeViewController: UIViewController {
     @objc private func didTapProducts() { presentFeature(ProductUpdatesViewController()) }
     @objc private func didTapGiftCards() { presentFeature(GiftCardsViewController()) }
     @objc private func didTapSavings() { presentFeature(SavingsViewController()) }
+    @objc private func didTapAddMoney() { presentFeature(AddMoneyViewController()) }
+    @objc private func didTapSwitchAccount() { presentFeature(SwitchAccountViewController()) }
+    @objc private func didTapUpdateAccount() { presentFeature(UpdateAccountViewController()) }
+    
+    @objc private func didTapHideBalance() {
+        isBalanceHidden.toggle()
+        if isBalanceHidden {
+            amtLabel.text = "****"
+            ledgerLabel.text = "Ledger balance:\n****"
+            hideBtn.setTitle(" Show Balance", for: .normal)
+            hideBtn.setImage(UIImage(systemName: "eye.fill"), for: .normal)
+        } else {
+            amtLabel.text = "₦500,000,000.00"
+            ledgerLabel.text = "Ledger balance:\n₦500,000,000.00"
+            hideBtn.setTitle(" Hide Balance", for: .normal)
+            hideBtn.setImage(UIImage(systemName: "eye.slash.fill"), for: .normal)
+        }
+    }
 }
